@@ -65,7 +65,9 @@
 矫正后：  
 ![image](https://github.com/Nocami/PythonComputerVision-6-CameraCalibration/blob/master/images/111.jpg)  
 ## 小结：  
-拍摄用手机型号为锤子科技出品的Smartisan M1L，其主摄像头为索尼SONY产2300W像素IMX318传感器。我们通过实验测得的其相机参数为下图：  
+拍摄用手机型号为锤子科技出品的Smartisan M1L，其主摄像头为索尼SONY产2300W像素IMX318传感器。  
+![image](https://github.com/Nocami/PythonComputerVision-6-CameraCalibration/blob/master/images/t1.jpg)  
+我们通过实验测得的其相机参数为下图：  
 ![image](https://github.com/Nocami/PythonComputerVision-6-CameraCalibration/blob/master/images/117.jpg)
 ## 3.源码及说明：
 ~~~python
@@ -135,3 +137,17 @@ cv2.imwrite('calibresult3.jpg', dst1)
 print ("方法一:dst的大小为:", dst1.shape)
 
 ~~~
+##### 说明：
+1.提取角点：  
+使用函数：findChessboardCorners(image,(w,h),None);  
+第一个参数为图片，第二个为图片横纵角点的个数。  
+2.找寻亚像素角点：cornerSubPix(gray, corners, (winsize, winsize), (-1, -1), criteria)  
+winsize为搜索窗口边长的一半。  
+zeroZone：搜索区域中间的dead region边长的一半，有时用于避免自相关矩阵的奇异性。如果值设为(-1,-1)则表示没有这个区域。  
+criteria：角点精准化迭代过程的终止条件。也就是当迭代次数超过criteria.maxCount，或者角点位置变化小于criteria.epsilon时，停止迭代过程。  
+3.角点绘制：  
+drawChessboardCorners(image, (w, h), corners, ret)  
+corners和ret为第一个函数的输出值。  
+## 四.特别说明：  
+本文原理部分参考地址：https://blog.csdn.net/honyniu/article/details/51004397  
+代码部分参考： https://www.cnblogs.com/wildbloom/p/8320351.html  
